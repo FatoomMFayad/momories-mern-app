@@ -5,7 +5,7 @@ import cors from 'cors';
 import postRoutes from './routes/posts.js';
 
 const app = express();
-app.use('/posts', postRoutes);
+
 
 //express 4.16+
 app.use(express.urlencoded({extended: true}));
@@ -13,7 +13,9 @@ app.use(express.json()) // To parse the incoming requests with JSON payloads
 
 app.use(cors());
 
-const CONNECTION_URL = 'mongodb+srv://ffatoom:<password>@cluster0.fuput.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+app.use('/posts', postRoutes);
+
+const CONNECTION_URL = 'mongodb+srv://ffatoom:eng17@5@1988l@cluster0.fuput.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
