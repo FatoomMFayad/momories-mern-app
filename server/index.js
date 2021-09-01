@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import postRoutes from './routes/posts.js';
@@ -11,10 +10,17 @@ const app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()) // To parse the incoming requests with JSON payloads
 
-app.use(cors());
+const corsOptions ={
+    origin:'localhost:3000', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 
 app.use('/posts', postRoutes);
 
+const CONNECTION_URL = '';
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true})
